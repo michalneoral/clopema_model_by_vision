@@ -1,0 +1,17 @@
+<package>
+  <description brief="clopema_model_by_vision">
+
+     clopema_model_by_vision
+
+  </description>
+  <author>Michal Neoral</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/clopema_model_by_vision</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+
+</package>
+
+
