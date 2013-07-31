@@ -1,0 +1,8 @@
+% clopema_model_by_vision
+% Michal Neoral
+allFiles = dir( path_to_bag_files );
+allNames = { allFiles.name };
+bagfile = input ('Put name of bag file: ','s');
+path_and_bagfile = strcat(path_to_bag_files, bagfile);
+bag = ros.Bag(path_and_bagfile);
+bag.info()

@@ -1,0 +1,9 @@
+function [ images ] = video( queue )
+
+images = zeros(size(queue));
+
+for i=1:size(queue)
+    images{i=doRGB(queue{1,i}.data);
+end 
+
+end

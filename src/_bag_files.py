@@ -5,7 +5,7 @@ import signal
 import subprocess
 import string
 
-path_to_files = '/media/5FB92F7D501A5B3A/CLOPEMA/bagfiles/'
+path_to_files = '/media/5FB92F7D501A5B3A/Clopema/'
 
 #def last_name():
     #gt = operator.gt
@@ -24,8 +24,8 @@ path_to_files = '/media/5FB92F7D501A5B3A/CLOPEMA/bagfiles/'
 #def delete_last():    
     #print 'nothing'
     
-def start_bag_file_all(name,number):
-    name_of_file=''.join([path_to_files, name, str(number)])
+def start_bag_file_all(name,speed,number,subname):
+    name_of_file=''.join([path_to_files, name, '_', speed, '_', str(number), '_', subname])
     p = subprocess.Popen(['rosbag', 'record', '-a', '-O', name_of_file])
     return p.pid
     

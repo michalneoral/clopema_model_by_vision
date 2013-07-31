@@ -3,18 +3,18 @@
 import roslib; roslib.load_manifest('clopema_smach')
 import rospy, smach, smach_ros, math, copy, tf, PyKDL, os, shutil, numpy, time, subprocess
 from _bag_files import start_bag_file_all, stop_bag_file
-from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip
+from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip, GoToActionJoints_r1, GoToActionJoints_r2
 
-time_to_close = 3
-time_to_measure = 3
-robot_speed = '0.1'
+time_to_close = 0
+time_to_measure = 0
 
 class bag_file_record:
     def __init__(self):
         self.subname_of_file = ''
         self.number_of_file = ''
-        self.time_more = 3.0 
-
+        self.time_more = 3.0
+        self.robot_speed = '0.1'
+                
     def zeros(self):
         _h_num=int(self.number_of_file)
         count=0
@@ -44,16 +44,38 @@ class bag_file_record:
     def get_next_name(self):
         if self.subname_of_file == '' or self.number_of_file == '':
 	        self.rename_bag()
-        next_name='.'.join([self.subname_of_file, self.number_of_file, 'bag'])
-        return next_name	
+        next_name=''.join([self.subname_of_file, '_', self.robot_speed, '_', self.number_of_file,'_RB.', 'bag'])
+        return next_name
+    
+    def change_speed(self):
+        self.robot_speed = '0'
+        while self.robot_speed == '0':
+            self.robot_speed = str(raw_input('Put a new speed of robot: '))
+        p=subprocess.Popen(['rosservice', 'call', '/set_robot_speed', self.robot_speed])
+
+def get_subname(i,y):
+    if y==0:
+        s='B'
+    else:
+        s='R'
+    subname=''.join([s,str(i+1)])
+    return subname
 
 def action_record_submenu(f):
-    pid=start_bag_file_all(f.subname_of_file,f.number_of_file)
-    ActionMove()
-    stop_bag_file(pid,f.time_more)
+    for i in range(0,3):
+        for y in range (0,2):		
+            GoToActionJoints_r1(i)
+            GoToActionJoints_r2(i,y)
+            time.sleep(f.time_more)
+            pid=start_bag_file_all(f.subname_of_file,f.robot_speed,f.number_of_file,get_subname(i,y))
+            ActionMove(i,y)
+            stop_bag_file(pid,f.time_more)
+            time.sleep(2)            
+            
+    GoToActionJoints_r1(0)
+    GoToActionJoints_r2(0,0)
     f.increase_number()
-    OpenGrip()
-
+    
 def action_record(f):
     i=raw_input("\n\n PRESS ENTER to close grip in %d seconds(...n...for exit)\n\n" % time_to_close)
     if i != 'n' and i != 'N':
@@ -71,8 +93,19 @@ def _record_change_menu(i,f):
     #may do no.3 - change time
     if i=='1' or i=='rename':
         f.rename_bag()
-    elif i=='2' or i=='delete':
-        print 'delete_last()'
+        _record_change(f)
+    elif i=='2' or i=='speed':
+        f.change_speed()
+        _record_change(f)
+    elif i=='3' or i=='open':
+        OpenGrip()
+        _record_change(f)
+    elif i=='4' or i=='close':
+        time.sleep(time_to_close)
+        CloseGrip()        
+        _record_change(f)
+    elif i=='5' or i=='cont':
+        _record(f)
     elif i=='menu':        
         print ""
     elif i=='stop':
@@ -81,7 +114,7 @@ def _record_change_menu(i,f):
 	    print "Doesn't work"
 
 def _record_change(f):
-    i = raw_input ("\n...1....CHANGE NAME (rename)\n...2....DELETE LAST ONE AND CONTINUE (delete)\n..menu..EXIT from recording\n\n..stop..EXIT program\n\n")
+    i = raw_input ("\n...1....CHANGE NAME (rename)\n...2....CHANGE SPEED (speed)\n...3....OPEN GRIPPER (open)\n...4....CLOSE GRIPPER (close)\n\n...5....CONTINUE RECORDING (cont)\n..menu..EXIT from recording\n\n..stop..EXIT program\n\n")
     _record_change_menu(i,f)
 
 def _record_menu(i,f):
@@ -100,9 +133,15 @@ def _menu(i,f):
     if i=='1' or i=='home':
         GoHome()
     elif i=='2' or i=='mpos':
-        GoToAction()
+        GoToActionJoints_r1(0)
+        GoToActionJoints_r2(0,0)
     elif i=='3' or i=='action':
         _record(f)
+    elif i=='4' or i=='open':
+        OpenGrip()
+    elif i=='5' or i=='close':        
+        time.sleep(time_to_close)
+        CloseGrip()
     elif i=='stop':
         exit()
     else:
@@ -111,13 +150,13 @@ def _menu(i,f):
 def start_program(f):
     i=''
     while i != 'stop':
-        i = raw_input ("\n...1....Move to the HOME position (home)\n...2....Move to READY TO MEASURE position (mpos)\n...3....Move and record (action)\n..stop..EXIT\n\n")
+        i = raw_input ("\n...1....Move to the HOME position (home)\n...2....Move to READY TO MEASURE position (mpos)\n...3....Move and record (action)\n...4....Open Gripper (open)\n...5....Close Gripper (close)\n..stop..EXIT\n\n")
         _menu(i,f)
 
 def main():
     rospy.init_node('collect_data')
-    p=subprocess.Popen(['rosservice', 'call', '/set_robot_speed', robot_speed])
     f=bag_file_record()
+    p=subprocess.Popen(['rosservice', 'call', '/set_robot_speed', f.robot_speed])
     print f.time_more
     start_program(f)    
 
