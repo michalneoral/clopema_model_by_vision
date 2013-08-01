@@ -43,6 +43,7 @@ sigma2_r2_ee = sigma1_r2_ee
 
 #swing
 swing=[math.pi/16,0,math.pi/16]
+t_pos=[0,math.pi]
 
 #position r1 - joints
 s1=[-math.pi/4,                          -math.pi/4,                          -math.pi/4,                           ]
@@ -50,7 +51,7 @@ l1=[0,                                   0,                                   0,
 u1=[-29*math.pi/64,                      -29*math.pi/64,                      -29*math.pi/64,                       ]
 r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+10*math.pi/32,                 ]
 b1=[(math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,         ]
-t1=[math.pi/4,                           math.pi/4,                           math.pi/4,                            ]
+t1=[6*math.pi/4,                         6*math.pi/4,                         6*math.pi/4,                          ]
 #position r2 - joints
 s2=[-4*math.pi/64,                       -0.0309350676414990,                 -4*math.pi/64,                        ]
 l2=[4*math.pi/64,                        0.649183646607166,                   6*math.pi/64,                         ]
@@ -83,7 +84,7 @@ def get_joints_r2(_pos=0, m_pos=0):
     joints.u = u2[_pos]
     joints.r = r2[_pos]
     joints.b = b2[_pos]-swing[1-m_pos]/2
-    joints.t = t2[_pos]-swing[m_pos]/2
+    joints.t = t2[_pos]-swing[m_pos]/2+t_pos[m_pos]
     return joints
 
 def get_joints_r2_m(_pos=0, m_pos=0):
@@ -93,7 +94,7 @@ def get_joints_r2_m(_pos=0, m_pos=0):
     joints.u = u2m[_pos]
     joints.r = r2m[_pos]+swing[1-m_pos]
     joints.b = b2m[_pos]+swing[m_pos]
-    joints.t = t2m[_pos]
+    joints.t = t2m[_pos]+t_pos[m_pos]
     return joints
 
 def get_new_pose(x,y,z,phi,teta,sigma):
