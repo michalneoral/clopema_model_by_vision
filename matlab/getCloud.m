@@ -1,7 +1,8 @@
-function [ pcloud, distance ] = getCloud( queue )
+function [ pcloud, distance ] = getCloud( queue , reduce)
 
 res_X=480;
 res_Y=640;
+max_dist = 1.8; % max 2.3, min 1.2
 
 first=zeros(res_X, res_Y);
 second=first;
@@ -18,6 +19,16 @@ end
 queue=first+second.*256;
 
 [pcloud, distance] = depthToCloud(queue);
+
+    if reduce
+        for i=1:res_X
+            for j=1:res_Y
+                if distance(i,j) > max_dist
+                        distance(i,j)=NaN;
+                end
+            end
+        end
+    end
 
 %dopsat odstranění velké vzdálenosti
 

@@ -27,7 +27,7 @@ end
 
 x = reshape(rgb, res_X, res_Y, 3); % reshape pulls columnwise, assume 6x2 image
 x = x/255; %scale the data to be between 0 and 1
-%image(x);
+image(x);
 picture=x;
 end
 

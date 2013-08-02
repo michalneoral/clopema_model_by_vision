@@ -4,17 +4,19 @@ function [ nclose ] = findMostClosed( msgs, topics, nfile )
 
     quantity_of_topics = size(topics,1);
     order_of_topics = zeros (quantity_of_topics,1);
-    nclose = zeros(quantity_of_topics,1);
+    nclose = zeros(quantity_of_topics,2);
     
     for i = 1:quantity_of_topics
         order_of_topics(i)=getTopicPosition(msgs, topics{i,1});
     end
     
-    nclose(1) = nfile;
+    nclose(1,1) = nfile;
+    nclose(1,2) = getTimeOfImage( msgs, 1, nfile);
     if nfile > 0 && nfile < size(msgs{order_of_topics(1),2},2);
     time = getTimeOfImage(msgs, order_of_topics(1), nfile);
         for i = 2:quantity_of_topics
-            nclose(i) = getMostClosed( time, msgs, order_of_topics(i), nfile );
+            nclose(i,1) = getMostClosed( time, msgs, order_of_topics(i), nfile );
+            nclose(i,2) = getTimeOfImage( msgs, order_of_topics(i), nclose(i,1))-time;
         end
     else
         disp('Too big put number of images');
