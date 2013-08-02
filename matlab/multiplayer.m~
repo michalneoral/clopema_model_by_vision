@@ -1,0 +1,13 @@
+% find and show two close images (rgb and depth)
+% show different time between
+
+function [ ] = multiplayer( msgs, nfile )
+
+    topics={
+    '/xtion1/depth/image_raw';
+    '/xtion1/rgb/image_raw';
+    };
+
+    
+
+end

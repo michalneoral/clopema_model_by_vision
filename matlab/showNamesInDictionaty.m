@@ -1,7 +1,8 @@
-function [] = showNamesInDictionaty( path )
+function [nfiles] = showNamesInDictionaty( path )
 
     names=getNamesInDictionaty(path);
-    for i=1:size(names,2)
+    nfiles=size(names,2);
+    for i=1:nfiles
         disp(names(i))
     end
 
