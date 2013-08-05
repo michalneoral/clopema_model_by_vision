@@ -26,9 +26,9 @@ teta_r1_xtion = -math.pi/2
 sigma_r1_xtion = -math.pi/4
 
 #first position of r2_ee
-x1_pos_r2_ee = 0.0
-y1_pos_r2_ee = -1.0
-z1_pos_r2_ee = 1.0
+x1_pos_r2_ee = 0.4
+y1_pos_r2_ee = -1.1
+z1_pos_r2_ee = 1.45
 phi1_r2_ee = math.pi
 teta1_r2_ee = 0
 sigma1_r2_ee = 0
@@ -42,30 +42,23 @@ teta2_r2_ee = teta1_r2_ee
 sigma2_r2_ee = sigma1_r2_ee
 
 #swing
-swing=[math.pi/16,0,math.pi/16]
-t_pos=[0,math.pi]
+swing=[math.pi/32,0]
+t_pos=[0,-math.pi/2]
 
 #position r1 - joints
 s1=[-math.pi/4,                          -math.pi/4,                          -math.pi/4,                           ]
 l1=[0,                                   0,                                   0,                                    ]
 u1=[-29*math.pi/64,                      -29*math.pi/64,                      -29*math.pi/64,                       ]
-r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+10*math.pi/32,                 ]
+r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+11*math.pi/32,                 ]
 b1=[(math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,         ]
-t1=[6*math.pi/4,                         6*math.pi/4,                         6*math.pi/4,                          ]
+t1=[math.pi/4,                           math.pi/4,                           math.pi/4,                            ]
 #position r2 - joints
-s2=[-4*math.pi/64,                       -0.0309350676414990,                 -4*math.pi/64,                        ]
-l2=[4*math.pi/64,                        0.649183646607166,                   6*math.pi/64,                         ]
-u2=[-6*math.pi/64,                       0.597959730940564,                   2*math.pi/64,                         ]
-r2=[0.0,                                 -0.261901304127543,                  0.0,                                  ]
-b2=[l2[0]-2*math.pi/64-u2[0],            0.0414739670654518,                  l2[2]-2*math.pi/64-u2[2],             ]
-t2=[0.0,                                 0.0,                                 0.0,                                  ]
-#change r2 during measure - joints
-s2m=[s2[0]+0.0,                          s2[1]+0.0,                           s2[2]+0.0,                            ]
-l2m=[l2[0]+0.0,                          l2[1]+0.0,                           l2[2]+0.0,                            ]
-u2m=[u2[0]+0.0,                          u2[1]+0.0,                           u2[2]+0.0,                            ]
-r2m=[r2[0]+0.0,                          r2[1]+0.0,                           r2[2]+0.0,                            ]
-b2m=[b2[0]+0.0,                          b2[1]+0.0,                           b2[2]+0.0,                            ]
-t2m=[t2[0]+0.0,                          t2[1]+0.0,                           t2[2]+0.0,                            ]
+s2=[-4*math.pi/64,                       -0.181688748501656,                 -4*math.pi/64,                        ]
+l2=[8*math.pi/64,                        0.740690504760511,                   6*math.pi/64,                         ]
+u2=[12*math.pi/64,                        1.11236742407980,                  10*math.pi/64,                         ]
+r2=[0.0,                                 -0.280681425850237,                  0.0,                                  ]
+b2=[l2[0]-2*math.pi/64-u2[0],            -0.405389079034982,                  l2[2]-2*math.pi/64-u2[2],             ]
+t2=[6*math.pi/64,                        6*math.pi/64,                        6*math.pi/64,                         ]
 
 def get_joints_r1(_pos=0):
     joints = MA1400JointState()
@@ -82,19 +75,19 @@ def get_joints_r2(_pos=0, m_pos=0):
     joints.s = s2[_pos]
     joints.l = l2[_pos]
     joints.u = u2[_pos]
-    joints.r = r2[_pos]
-    joints.b = b2[_pos]-swing[1-m_pos]/2
-    joints.t = t2[_pos]-swing[m_pos]/2+t_pos[m_pos]
+    joints.r = r2[_pos]-swing[1-m_pos]
+    joints.b = b2[_pos]-swing[m_pos]
+    joints.t = t2[_pos]+t_pos[m_pos]
     return joints
 
 def get_joints_r2_m(_pos=0, m_pos=0):
     joints = MA1400JointState()
-    joints.s = s2m[_pos]
-    joints.l = l2m[_pos]
-    joints.u = u2m[_pos]
-    joints.r = r2m[_pos]+swing[1-m_pos]
-    joints.b = b2m[_pos]+swing[m_pos]
-    joints.t = t2m[_pos]+t_pos[m_pos]
+    joints.s = s2[_pos]
+    joints.l = l2[_pos]
+    joints.u = u2[_pos]
+    joints.r = r2[_pos]+swing[1-m_pos]
+    joints.b = b2[_pos]+swing[m_pos]
+    joints.t = t2[_pos]+t_pos[m_pos]
     return joints
 
 def get_new_pose(x,y,z,phi,teta,sigma):
@@ -192,6 +185,25 @@ u2m=u2+0.0
 r2m=r2+0.0
 b2m=b2+swing
 t2m=t2+0.0
+
+NEWER
+
+#position r1 - joints
+s1=[-math.pi/4,                          -math.pi/4,                          -math.pi/4,                           ]
+l1=[0,                                   0,                                   0,                                    ]
+u1=[-29*math.pi/64,                      -29*math.pi/64,                      -29*math.pi/64,                       ]
+r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+11*math.pi/32,                 ]
+b1=[(math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,         ]
+t1=[math.pi/4,                           math.pi/4,                           math.pi/4,                            ]
+#position r2 - joints
+s2=[-4*math.pi/64,                       -0.0309350676414990,                 -4*math.pi/64,                        ]
+l2=[8*math.pi/64,                        0.649183646607166,                   6*math.pi/64,                         ]
+u2=[12*math.pi/64,                        0.597959730940564,                  10*math.pi/64,                         ]
+r2=[0.0,                                 -0.261901304127543,                  0.0,                                  ]
+b2=[l2[0]-2*math.pi/64-u2[0],            0.0414739670654518,                  l2[2]-2*math.pi/64-u2[2],             ]
+t2=[6*math.pi/64,                        6*math.pi/64,                        6*math.pi/64,                         ]
+
+
 
 
 """
