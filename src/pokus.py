@@ -15,11 +15,13 @@ import actions
 
 def main():
     rospy.init_node('shake_it_demo')
-    #
-    actions.GoToActionJoints_r1(2)
-    actions.GoToActionJoints_r2(2,0)
-    actions.ActionMove(2,0)
-    #actions.GoToAction()
+    #    
+    #actions.ExtAxisMove(1)
+    #actions.GoToActionJoints_r1(2)
+    #actions.GoToActionJoints_r2(2,1)
+    #actions.ActionMove(2,1)
+    actions.GoToAction()
+    actions.ExtAxisMove(0)
        
 if __name__ == '__main__':
     main()

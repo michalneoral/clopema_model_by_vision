@@ -4,11 +4,26 @@ import rospy, smach, smach_ros, math, copy, tf, PyKDL, os, shutil, numpy
 from tf.transformations import quaternion_from_euler, quaternion_about_axis
 from tf_conversions import posemath
 from clopema_smach import *
+from clopema_motoros.srv import *
 from geometry_msgs.msg import *
 from smach import State
 from clopema_planning_actions.msg import MA1400JointState
 from clopema_smach.utility_states import PoseBufferState
 import _pos
+
+def ExtAxisMove(pos=0):
+    sq = smach.Sequence( outcomes = ['succeeded','aborted','preempted'], connector_outcome = 'succeeded')
+    sm = gensm_plan_vis_exec(PlanExtAxisState(), input_keys=[], output_keys=[], visualize = _pos.visualize)
+    sm.userdata.position = _pos.get_ext_axis_position(pos)
+
+    with sq:
+        smach.Sequence.add('GOTO', sm, transitions={'aborted':'POWER_OFF'})
+        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+   
+    sis = smach_ros.IntrospectionServer('introspection_server', sq, '/SM_ROOT')
+    sis.start()
+    outcome = sq.execute()
+    sis.stop()
 
 def remove_middle_points(ud):
     """By Vladimir Petrik"""
@@ -54,6 +69,7 @@ def _move(name, new_smash, new_smash_plan):
     sis.stop()
     
 def GoHome(name = 'go_home'):
+    ExtAxisMove()
     new_smash = smach.Sequence(outcomes=['succeeded', 'preempted', 'aborted'], connector_outcome='succeeded')
     new_smash_plan = gensm_plan_vis_exec(PlanToHomeState(), input_keys=[], output_keys=[], visualize = _pos.visualize)
     _move(name, new_smash, new_smash_plan)

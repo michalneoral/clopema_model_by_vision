@@ -26,9 +26,9 @@ teta_r1_xtion = -math.pi/2
 sigma_r1_xtion = -math.pi/4
 
 #first position of r2_ee
-x1_pos_r2_ee = 0.4
-y1_pos_r2_ee = -1.1
-z1_pos_r2_ee = 1.45
+x1_pos_r2_ee = 0.8
+y1_pos_r2_ee = -1.2
+z1_pos_r2_ee = 0.5
 phi1_r2_ee = math.pi
 teta1_r2_ee = 0
 sigma1_r2_ee = 0
@@ -45,11 +45,14 @@ sigma2_r2_ee = sigma1_r2_ee
 swing=[math.pi/32,0]
 t_pos=[0,-math.pi/2]
 
+#ext.axis
+ext_axis=[0, math.pi/5, -math.pi/4]
+
 #position r1 - joints
 s1=[-math.pi/4,                          -math.pi/4,                          -math.pi/4,                           ]
 l1=[0,                                   0,                                   0,                                    ]
 u1=[-29*math.pi/64,                      -29*math.pi/64,                      -29*math.pi/64,                       ]
-r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+11*math.pi/32,                 ]
+r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s1[2]+21*math.pi/64,                 ]
 b1=[(math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,         ]
 t1=[math.pi/4,                           math.pi/4,                           math.pi/4,                            ]
 #position r2 - joints
@@ -126,7 +129,11 @@ def get_poses():
     pose.position.z = z1_pos_r2_ee
     pose.orientation = Quaternion(*quaternion_from_euler(phi1_r2_ee,teta1_r2_ee,sigma1_r2_ee))
     poses.append(copy.deepcopy(pose))
-    return poses   
+    return poses
+
+def get_ext_axis_position(ext=0):
+    return ext_axis[ext]
+    
    
 """
 OLD POSITIONS

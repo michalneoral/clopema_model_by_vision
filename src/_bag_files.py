@@ -30,7 +30,7 @@ def start_bag_file_all(name,speed,number,subname):
        save only topics in ./../matlab/topics.txt"""   
     #read a file with names of topics
     try:
-        f = open("../matlab/topics.txt", "r")
+        f = open("./matlab/topics.txt", "r")
         try:
             lines = f.readlines()            
         finally:

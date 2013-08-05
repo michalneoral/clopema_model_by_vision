@@ -3,7 +3,7 @@
 import roslib; roslib.load_manifest('clopema_smach')
 import rospy, smach, smach_ros, math, copy, tf, PyKDL, os, shutil, numpy, time, subprocess
 from _bag_files import start_bag_file_all, stop_bag_file
-from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip, GoToActionJoints_r1, GoToActionJoints_r2
+from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip, GoToActionJoints_r1, GoToActionJoints_r2, ExtAxisMove
 
 time_to_close = 0
 time_to_measure = 0
@@ -62,6 +62,7 @@ def get_subname(i,y):
     return subname
 
 def action_record_submenu(f):
+    ExtAxisMove(1)
     for i in range(0,3):
         for y in range (0,2):		
             GoToActionJoints_r1(i)
@@ -135,6 +136,7 @@ def _menu(i,f):
     elif i=='2' or i=='mpos':
         GoToActionJoints_r1(0)
         GoToActionJoints_r2(0,0)
+        ExtAxisMove(1)
     elif i=='3' or i=='action':
         _record(f)
     elif i=='4' or i=='open':
