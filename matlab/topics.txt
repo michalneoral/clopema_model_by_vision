@@ -18,14 +18,3 @@
 /xtion1/depth/points
 /xtion1/depth_registered/disparity
 /xtion1/depth_registered/points
-/xtion1/driver/parameter_descriptions
-/xtion1/driver/parameter_updates
-/xtion1/depth_registered/rectify_depth/parameter_descriptions
-/xtion1/depth_registered/rectify_depth/parameter_updates
-/xtion1/depth/rectify_depth/parameter_descriptions
-/xtion1/depth/rectify_depth/parameter_updates
-/xtion1/ir/rectify_ir/parameter_descriptions
-/xtion1/ir/rectify_ir/parameter_updates
-/xtion1/rgb/rectify_color/parameter_description
-/xtion1/rgb/rectify_color/parameter_updates
-/dual_command

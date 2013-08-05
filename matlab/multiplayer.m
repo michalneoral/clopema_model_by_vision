@@ -3,10 +3,11 @@
 
 function [ order_images ] = multiplayer( msgs, nfile )
 
+    offset = 0.1;
+
     topics={
     '/xtion1/depth/image_raw';
     '/xtion1/rgb/image_raw';
-    '/xtion1/rgb/image_rect_color';
     };
 
     order_images = findMostClosed( msgs, topics, nfile);    
@@ -16,9 +17,9 @@ function [ order_images ] = multiplayer( msgs, nfile )
         order_of_topics(i)=getTopicPosition(msgs, topics{i,1});
     end
     
-    if order_images(:) ~= 0
+    if order_images(:,1) >= offset
         for i=1:size_of_topics
-            multiplayerSubplot(size_of_topics,i,order_of_topics(i),order_images(i),msgs,order_of_topics(1),order_images(1))
+            multiplayerSubplot(size_of_topics,i,order_of_topics(i),order_images(i,1),msgs,order_of_topics(1),order_images(1));
         end
     end
 end
