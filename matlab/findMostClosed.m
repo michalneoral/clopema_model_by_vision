@@ -15,7 +15,7 @@ function [ nclose ] = findMostClosed( msgs, topics, nfile )
     if nfile > 0 && nfile < size(msgs{order_of_topics(1),2},2);
     time = getTimeOfImage(msgs, order_of_topics(1), nfile);
     nclose(1,1) = nfile;
-    nclose(1,2) = getTimeOfImage( msgs, 1, nfile)-time;
+    nclose(1,2) = time-getTimeOfImage( msgs, order_of_topics(1), 1);
         for i = 2:quantity_of_topics
             nclose(i,1) = getMostClosed( time, msgs, order_of_topics(i), nfile );
             nclose(i,2) = getTimeOfImage( msgs, order_of_topics(i), nclose(i,1))-time;
