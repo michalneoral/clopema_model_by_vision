@@ -1,19 +1,19 @@
 function [ rect_image ] = rectificationImage( rect, image )
 
+ % DODELAT
+
     rect_image=zeros(size(image));
     
-    
-
-    
-    
-    % DODELAT
+    K=rect.K;
+    R=rect.R;
+    D=rect.D;
+    P=rect.P;    
+   
     
      for i=1:size(image,1)
          for j=1:size(image,2)
              for k=1:size(image,3)
-                 sec_image(i,j,k,:) = rect.P * [i j image(i,j,k) 1]';
-%                  x = u / w;
-%                  y = v / w;
+                 
              end
          end
      end

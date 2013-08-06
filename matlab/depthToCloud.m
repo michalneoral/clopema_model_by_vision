@@ -21,7 +21,7 @@ depth(depth == 0) = nan;
 % RGB-D camera constants
 center = [320 240];
 [imh, imw] = size(depth);
-constant = 570.3;
+constant = 570.3; %540.021232;   
 MM_PER_M = 1000;
 
 % convert depth image to 3d point clouds

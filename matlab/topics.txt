@@ -18,3 +18,4 @@
 /xtion1/depth/points
 /xtion1/depth_registered/disparity
 /xtion1/depth_registered/points
+/xtion1/rgb/image_rect_color

@@ -26,6 +26,9 @@ queue=first+second.*256;
                 if distance(i,j) > max_dist
                         distance(i,j)=NaN;
                 end
+                if pcloud(i,j,3) > max_dist
+                        pcloud(i,j,3)=NaN;
+                end
             end
         end
     end
