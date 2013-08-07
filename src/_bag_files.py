@@ -50,6 +50,30 @@ def start_bag_file_all(name,speed,number,subname):
     p = subprocess.Popen(m)
     return p.pid
     
+def start_bag_file_camera_def(number_of_position):
+    """function to save bag file
+       save only topics in ./../matlab/topics.txt"""   
+    try:
+        f = open("./matlab/topics.txt", "r")
+        try:
+            lines = f.readlines()            
+        finally:
+            f.close()
+    except IOError:
+        pass
+
+    name_of_file=''.join([path_to_files, 'camera_default', '_',number_of_position])
+    m=range(0,len(lines)+4)
+    m[0]='rosbag'
+    m[1]='record'
+    m[2]='-O'
+    m[3]=name_of_file
+    for i in range(0,len(lines)):
+        s=str(lines[i]).strip()
+        m[i+4]=s
+    p = subprocess.Popen(m)
+    return p.pid    
+    
 def stop_bag_file(pid, time_more):
     time.sleep(time_more)
     os.kill(pid, signal.SIGINT)

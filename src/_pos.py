@@ -56,12 +56,12 @@ r1=[-s1[0]+10*math.pi/32,                -s1[1]+10*math.pi/32,                -s
 b1=[(math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,        (math.pi-0.00001)-math.pi/16,         ]
 t1=[math.pi/4,                           math.pi/4,                           math.pi/4,                            ]
 #position r2 - joints
-s2=[-4*math.pi/64,                       -0.181688748501656,                 -4*math.pi/64,                        ]
-l2=[8*math.pi/64,                        0.740690504760511,                   6*math.pi/64,                         ]
-u2=[12*math.pi/64,                        1.11236742407980,                  10*math.pi/64,                         ]
-r2=[0.0,                                 -0.280681425850237,                  0.0,                                  ]
-b2=[l2[0]-2*math.pi/64-u2[0],            -0.405389079034982,                  l2[2]-2*math.pi/64-u2[2],             ]
-t2=[6*math.pi/64,                        6*math.pi/64,                        6*math.pi/64,                         ]
+s2=[-4*math.pi/64,                       -0.181688748501656,                 -4*math.pi/64,                         -4*math.pi/64,                      ]
+l2=[8*math.pi/64,                        0.740690504760511,                   6*math.pi/64,                         0*math.pi/64,                       ]
+u2=[12*math.pi/64,                        1.11236742407980,                  10*math.pi/64,                         12*math.pi/64,                      ]
+r2=[0.0,                                 -0.280681425850237,                  0.0,                                  -0.0,                               ]
+b2=[l2[0]-2*math.pi/64-u2[0],            -0.405389079034982,                  l2[2]-2*math.pi/64-u2[2],             math.pi/4,           ]
+t2=[6*math.pi/64,                        6*math.pi/64,                        6*math.pi/64,                         6*math.pi/64,                       ]
 
 def get_joints_r1(_pos=0):
     joints = MA1400JointState()

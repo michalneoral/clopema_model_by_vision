@@ -2,7 +2,7 @@
 """program for collecting data, only menu"""
 import roslib; roslib.load_manifest('clopema_smach')
 import rospy, smach, smach_ros, math, copy, tf, PyKDL, os, shutil, numpy, time, subprocess
-from _bag_files import start_bag_file_all, stop_bag_file
+from _bag_files import start_bag_file_all, stop_bag_file, start_bag_file_camera_def
 from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip, GoToActionJoints_r1, GoToActionJoints_r2, ExtAxisMove
 
 time_to_close = 0
@@ -129,7 +129,15 @@ def _record(f):
     while i != 'n' and i != 'N':        
         i = raw_input ("\nFor edit [n]\nWant you record %s file? [Y/n]\n" % f.get_next_name())
         _record_menu(i,f)
-
+        
+def _cameraDefaultRecord():
+    ExtAxisMove(1)
+    GoToActionJoints_r2(3,0)
+    for i in range(0,3):
+        GoToActionJoints_r1(i)
+        pid=start_bag_file_camera_def(str(i))
+        stop_bag_file(pid,0.5)
+    
 def _menu(i,f):
     if i=='1' or i=='home':
         GoHome()
@@ -144,6 +152,8 @@ def _menu(i,f):
     elif i=='5' or i=='close':        
         time.sleep(time_to_close)
         CloseGrip()
+    elif i=='6' or i=='camdef':        
+        _cameraDefaultRecord()
     elif i=='stop':
         exit()
     else:
@@ -152,7 +162,7 @@ def _menu(i,f):
 def start_program(f):
     i=''
     while i != 'stop':
-        i = raw_input ("\n...1....Move to the HOME position (home)\n...2....Move to READY TO MEASURE position (mpos)\n...3....Move and record (action)\n...4....Open Gripper (open)\n...5....Close Gripper (close)\n..stop..EXIT\n\n")
+        i = raw_input ("\n...1....Move to the HOME position (home)\n...2....Move to READY TO MEASURE position (mpos)\n...3....Move and record (action)\n...4....Open Gripper (open)\n...5....Close Gripper (close)\n...6....Camera default record (camdef)\n..stop..EXIT\n\n")
         _menu(i,f)
 
 def main():
