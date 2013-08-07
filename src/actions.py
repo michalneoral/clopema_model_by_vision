@@ -60,7 +60,7 @@ def CloseGrip(name = 'close_grip'):
 def _move(name, new_smash, new_smash_plan):
     with new_smash:
         smach.Sequence.add('GOTO', new_smash_plan, transitions={'aborted':''})
-        #smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
 
     sis = smach_ros.IntrospectionServer(name, new_smash, '/SM_ROOT')
     sis.start()

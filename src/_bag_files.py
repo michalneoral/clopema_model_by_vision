@@ -77,3 +77,4 @@ def start_bag_file_camera_def(number_of_position):
 def stop_bag_file(pid, time_more):
     time.sleep(time_more)
     os.kill(pid, signal.SIGINT)
+    
