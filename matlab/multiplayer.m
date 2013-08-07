@@ -12,6 +12,8 @@ function [ order_images, something ] = multiplayer( msgs, nfile )
     '/xtion1/rgb/image_rect_color';
     };
 
+    % DODELAT NACTENI VŠECH POSLOUPNOSTÍ
+
     order_images = findMostClosed( msgs, topics, nfile);
     order_images_2 = findMostClosed( msgs, topics, nfile+1);
 %     size_of_topics = size(order_images,1);
