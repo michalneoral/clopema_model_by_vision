@@ -6,8 +6,8 @@ function [ order_images, something ] = multiplayer( msgs, nfile )
     offset = 0.1;
 
     topics={
-    '/xtion1/depth/image_raw';    
     '/xtion1/rgb/image_raw';
+    '/xtion1/depth/image_raw';    
     '/xtion1/depth/image_rect_raw';
     '/xtion1/rgb/image_rect_color';
     };

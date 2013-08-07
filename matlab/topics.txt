@@ -5,17 +5,6 @@
 /xtion1/projector/camera_info
 /xtion1/rgb/camera_info
 /xtion1/depth/image_raw
-/xtion1/depth/image_rect_raw
-/xtion1/depth_registered/image_raw
-/xtion1/depth_registered/image_rect_raw
 /xtion1/rgb/image_raw
-/xtion1/rgb/image_rect
-/xtion1/depth/image
-/xtion1/depth/image_rect
-/xtion1/depth_registered/image
-/xtion1/depth_registered/image_rect
 /xtion1/depth/disparity
 /xtion1/depth/points
-/xtion1/depth_registered/disparity
-/xtion1/depth_registered/points
-/xtion1/rgb/image_rect_color

@@ -16,5 +16,5 @@ imageMoravec=nan(res);
             end
         end    
     maximum=max(max(imageMoravec));
-    imageMoravec=imageMoravec(:,:)/(maximum+0.000000001);
+    imageMoravec=imageMoravec(:,:)./(maximum+0.000000001);
 end

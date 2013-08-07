@@ -69,6 +69,7 @@ def action_record_submenu(f):
             GoToActionJoints_r2(i,y)
             time.sleep(f.time_more)
             pid=start_bag_file_all(f.subname_of_file,f.robot_speed,f.number_of_file,get_subname(i,y))
+            time.sleep(2)
             ActionMove(i,y)
             stop_bag_file(pid,f.time_more)
             time.sleep(2)            
@@ -136,7 +137,7 @@ def _cameraDefaultRecord():
     for i in range(0,3):
         GoToActionJoints_r1(i)
         pid=start_bag_file_camera_def(str(i))
-        stop_bag_file(pid,0.5)
+        stop_bag_file(pid,5)
     
 def _menu(i,f):
     if i=='1' or i=='home':

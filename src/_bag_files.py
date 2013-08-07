@@ -6,7 +6,7 @@ import subprocess
 import string
 
 #path_to_files = '/media/5FB92F7D501A5B3A/Clopema/'
-path_to_files = '/tmp/neoral/'
+path_to_files = '/home/neoral/'
 
 #def last_name():
     #gt = operator.gt

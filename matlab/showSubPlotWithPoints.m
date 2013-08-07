@@ -1,6 +1,9 @@
 function [ something ] = showSubPlotWithPoints( msgs, orders1, orders2 )
 something = 0;
 
+topic3d=2;
+topicrgb=1;
+
 y_s = 2;
 x_s = 2;
 
@@ -9,7 +12,7 @@ res_X=640;
 
 %% Plotting 3D
 
-[ pcloud, distance ] = getCloud( msgs{orders1(1,3),1}{1,orders1(1,1)}.data , true);
+[ pcloud, distance ] = getCloud( msgs{orders1(topic3d,3),1}{1,orders1(topic3d,1)}.data , true);
 
 subplot(y_s,x_s,1);
 surf(distance,'EdgeColor','none');
@@ -20,7 +23,7 @@ colormap(jet);
 %% Plotting Image Color
 
 subplot(y_s,x_s,2);
-preImage = queueToImage(msgs{orders1(2,3),1}{1,orders1(2,1)}.data,res_X,res_Y);
+preImage = queueToImage(msgs{orders1(topicrgb,3),1}{1,orders1(topicrgb,1)}.data,res_X,res_Y);
 imageRGB = normalizeRGB (preImage);
 image(imageRGB);
 
@@ -42,7 +45,7 @@ image(imageRGB);
 
 %% Plot masked
 
-imageMasked=nan(size(imageRGB,1),size(imageRGB,2));
+mageMasked=nan(size(imageRGB,1),size(imageRGB,2));
 subplot(y_s,x_s,3);
 for i=1:res_Y
     for j=1:res_X
@@ -51,8 +54,12 @@ for i=1:res_Y
         %end
     end
 end
-image(imageMasked);
+% image(imageMasked);
 
+preImage = queueToImage(msgs{orders2(topicrgb,3),1}{1,orders2(topicrgb,1)}.data,res_X,res_Y);
+imageRGB2 = normalizeRGB (preImage);
+imageFiltred = motionDetection(imageRGB, imageRGB2);
+image(imageFiltred);
 
 %% Plot Moravec
 

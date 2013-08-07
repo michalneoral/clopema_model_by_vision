@@ -17,8 +17,8 @@ def ExtAxisMove(pos=0):
     sm.userdata.position = _pos.get_ext_axis_position(pos)
 
     with sq:
-        smach.Sequence.add('GOTO', sm, transitions={'aborted':'POWER_OFF'})
-        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+        smach.Sequence.add('GOTO', sm, transitions={'aborted':''})
+        #smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
    
     sis = smach_ros.IntrospectionServer('introspection_server', sq, '/SM_ROOT')
     sis.start()
@@ -59,8 +59,8 @@ def CloseGrip(name = 'close_grip'):
 
 def _move(name, new_smash, new_smash_plan):
     with new_smash:
-        smach.Sequence.add('GOTO', new_smash_plan, transitions={'aborted':'POWER_OFF'})
-        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+        smach.Sequence.add('GOTO', new_smash_plan, transitions={'aborted':''})
+        #smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
 
     sis = smach_ros.IntrospectionServer(name, new_smash, '/SM_ROOT')
     sis.start()
@@ -126,7 +126,7 @@ def ActionMove(pos=0, m_pos=0, name = 'move_measure'):
         smach.Sequence.add('INTERPOLATE', Interpolate1JointsState())
         smach.Sequence.add('REMOVE_MIDDLE_POINTS', FunctionApplicationState(remove_middle_points, input_keys=['trajectory', 'density', 'middle_points', 'end_points'], output_keys=['trajectory']))
         smach.Sequence.add('EXECUTE', TrajectoryExecuteState())
-        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+        #smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
     
     sis = smach_ros.IntrospectionServer(name, sm, '/SM_ROOT')
     sis.start()
@@ -137,7 +137,7 @@ def JointsState(sm,name):
     with sm:
         smach.Sequence.add('PLAINT_TO_STATE', Plan1ToJointsState())
         smach.Sequence.add('EXECUTE', TrajectoryExecuteState())
-        smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
+        #smach.Sequence.add('POWER_OFF', SetServoPowerOffState())
     
     sis = smach_ros.IntrospectionServer(name, sm, '/SM_ROOT')
     sis.start()
