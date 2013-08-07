@@ -1,8 +1,8 @@
-function [ something ] = showSubPlotWithPoints( msgs, orders1, orders2 )
+function [ something ] = showSubPlotWithPoints( msgs, queue, nfile )
 something = 0;
 
-topic3d=2;
-topicrgb=1;
+topic3d=1;
+topicrgb=2;
 
 y_s = 2;
 x_s = 2;
@@ -12,7 +12,7 @@ res_X=640;
 
 %% Plotting 3D
 
-[ pcloud, distance ] = getCloud( msgs{orders1(topic3d,3),1}{1,orders1(topic3d,1)}.data , true);
+[ pcloud, distance ] = getCloud( msgs{queue{nfile,1}(topic3d,3),1}{1,queue{nfile,1}(topic3d,1)}.data , true);
 
 subplot(y_s,x_s,1);
 surf(distance,'EdgeColor','none');
@@ -23,13 +23,13 @@ colormap(jet);
 %% Plotting Image Color
 
 subplot(y_s,x_s,2);
-preImage = queueToImage(msgs{orders1(topicrgb,3),1}{1,orders1(topicrgb,1)}.data,res_X,res_Y);
+preImage = queueToImage(msgs{queue{nfile,1}(topicrgb,3),1}{1,queue{nfile,1}(topicrgb,1)}.data,res_X,res_Y);
 imageRGB = normalizeRGB (preImage);
 image(imageRGB);
 
 % %% Plotting 3D 2
 % 
-% [ pcloud, distance ] = getCloud( msgs{orders2(1,3),1}{1,orders2(1,1)}.data , true);
+% [ pcloud, distance ] = getCloud( msgs{queue{nfile+1,1}(1,3),1}{1,queue{nfile+1,1}(1,1)}.data , true);
 % 
 % subplot(y_s,x_s,3);
 % surf(distance,'EdgeColor','none');
@@ -39,7 +39,7 @@ image(imageRGB);
 % %% Plotting Image Color 2
 % 
 % subplot(y_s,x_s,4);
-% preImage = queueToImage(msgs{orders2(2,3),1}{1,orders2(2,1)}.data,res_X,res_Y);
+% preImage = queueToImage(msgs{queue{nfile+1,1}(2,3),1}{1,queue{nfile+1,1}(2,1)}.data,res_X,res_Y);
 % imageRGB = normalizeRGB (preImage);
 % image(imageRGB);
 
@@ -56,7 +56,7 @@ for i=1:res_Y
 end
 % image(imageMasked);
 
-preImage = queueToImage(msgs{orders2(topicrgb,3),1}{1,orders2(topicrgb,1)}.data,res_X,res_Y);
+preImage = queueToImage(msgs{queue{nfile+1,1}(topicrgb,3),1}{1,queue{nfile+1,1}(topicrgb,1)}.data,res_X,res_Y);
 imageRGB2 = normalizeRGB (preImage);
 imageFiltred = motionDetection(imageRGB, imageRGB2);
 image(imageFiltred);
