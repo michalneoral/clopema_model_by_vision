@@ -1,19 +1,28 @@
-function [ filtredImage, maskedImage ] = motionDetection( image1,image2 )
+function [ filtredImage, maskImage] = motionDetection( image1,image2 )
 
 offset = 0.1;
     
-maskedImage = abs(image1-image2) >= offset;
+maskImage = abs(image1-image2) >= offset;
 
-maskedImage(:,:,1) = (maskedImage(:,:,1)+maskedImage(:,:,2)+maskedImage(:,:,3)) >= 1-offset;
+maskImage(:,:,1) = (maskImage(:,:,1)+maskImage(:,:,2)+maskImage(:,:,3)) >= 1-offset;
 
 %% mathematical morphology opening
-openingMask = ones (10);
-maskedImage(:,:,1) = imopen(maskedImage(:,:,1),openingMask);
+openingMask = ones (15);
+maskImage(:,:,1) = imopen(maskImage(:,:,1),openingMask);
 
 %%
-maskedImage(:,:,2) = maskedImage(:,:,1);
-maskedImage(:,:,3) = maskedImage(:,:,2);
+maskImage(:,:,2) = maskImage(:,:,1);
+maskImage(:,:,3) = maskImage(:,:,2);
 
-filtredImage = maskedImage .* image1;
+maskImage = nullToNan(maskImage);
 
+filtredImage = maskImage .* image1;
+
+
+
+end
+
+function [Mask] = nullToNan(Mask)
+    Mask=double(Mask);
+    Mask(Mask==0)=nan;
 end
