@@ -26,6 +26,7 @@ subplot(y_s,x_s,2);
 preImage = queueToImage(msgs{queue{nfile,1}(topicrgb,3),1}{1,queue{nfile,1}(topicrgb,1)}.data,res_X,res_Y);
 imageRGB = normalizeRGB (preImage);
 image(imageRGB);
+grid on;
 
 % %% Plotting 3D 2
 % 
@@ -61,21 +62,21 @@ image(imageFiltred);
 
 %% Plot Moravec
 
-% %imageMoravec=moravec(imageRGB);
-% imageMoravec=moravec(imageMasked);
-% imageMoravec=moravec(imageMoravec);
-% 
-% subplot(y_s,x_s,4);
-% %normalizedMoravec = normalizeToOneWithBorder(imageMoravec);
-% getCouplesOfPoints(imageMoravec,imageMoravec);
-% 
-% imagemor=zeros(size(imageMoravec,1),size(imageMoravec,2),3);
-% for i=1:3
-% imagemor(:,:,i)=imageMoravec(:,:);
-% end
-% 
-% image(imagemor);
-% something=imageMoravec;
+%imageMoravec=moravec(imageRGB);
+imageMoravec=moravec(imageMasked);
+imageMoravec=moravec(imageMoravec);
+
+subplot(y_s,x_s,4);
+%normalizedMoravec = normalizeToOneWithBorder(imageMoravec);
+getCouplesOfPoints(imageMoravec,imageMoravec);
+
+imagemor=zeros(size(imageMoravec,1),size(imageMoravec,2),3);
+for i=1:3
+imagemor(:,:,i)=imageMoravec(:,:);
+end
+
+image(imagemor);
+something=imageMoravec;
 
 end
 
