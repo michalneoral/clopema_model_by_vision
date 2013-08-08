@@ -1,7 +1,7 @@
 % find and show two close images (rgb and depth)
 % show different time between
 
-function [ queue, something ] = multiplayer( msgs, rgb_back, nfile )
+function [ order_images, something ] = multiplayer( msgs, nfile )
 
     offset = 0.1;
 
@@ -23,14 +23,15 @@ function [ queue, something ] = multiplayer( msgs, rgb_back, nfile )
 %             multiplayerSubplot(size_of_topics,i,order_of_topics(i),order_images(i,1),msgs,order_of_topics(1),order_images(1));
 %         end
 %     end
-    queue = makeQueueOfClosedTopics(msgs,topics);
-    something = showSubPlotWithPoints(msgs, queue, nfile, rgb_back);
+
+    something = showSubPlotWithPoints(msgs, order_images, order_images_2);
 
 end
 
 function [queue] = makeQueueOfClosedTopics(msgs,topics)
     pos=getTopicPosition(msgs, topics{1,1});
     quantity=size(msgs{pos,1},2);
+    queue=
     for i=1:quantity
         queue(i,:) = {findMostClosed( msgs, topics, i)};
     end

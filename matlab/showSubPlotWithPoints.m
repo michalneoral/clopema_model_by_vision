@@ -1,4 +1,4 @@
-function [ something ] = showSubPlotWithPoints( msgs, queue, nfile )
+function [ something ] = showSubPlotWithPoints( msgs, queue, nfile, rgb_back )
 something = 0;
 
 topic3d=1;
@@ -45,39 +45,37 @@ image(imageRGB);
 
 %% Plot masked
 
-mageMasked=nan(size(imageRGB,1),size(imageRGB,2));
+% imageMasked=nan(size(imageRGB,1),size(imageRGB,2));
 subplot(y_s,x_s,3);
-for i=1:res_Y
-    for j=1:res_X
-        %if ~isnan(distance(i,j))
-            imageMasked(i,j)=imageRGB(i,j,1)*0.6+imageRGB(i,j,2)*0.3+imageRGB(i,j,3)*0.1;
-        %end
-    end
-end
+% for i=1:res_Y
+%     for j=1:res_X
+%         %if ~isnan(distance(i,j))
+%             imageMasked(i,j)=imageRGB(i,j,1)*0.6+imageRGB(i,j,2)*0.3+imageRGB(i,j,3)*0.1;
+%         %end
+%     end
+% end
 % image(imageMasked);
 
-preImage = queueToImage(msgs{queue{nfile+1,1}(topicrgb,3),1}{1,queue{nfile+1,1}(topicrgb,1)}.data,res_X,res_Y);
-imageRGB2 = normalizeRGB (preImage);
-imageFiltred = motionDetection(imageRGB, imageRGB2);
+imageFiltred = motionDetection(imageRGB, rgb_back);
 image(imageFiltred);
 
 %% Plot Moravec
 
-%imageMoravec=moravec(imageRGB);
-imageMoravec=moravec(imageMasked);
-imageMoravec=moravec(imageMoravec);
-
-subplot(y_s,x_s,4);
-%normalizedMoravec = normalizeToOneWithBorder(imageMoravec);
-getCouplesOfPoints(imageMoravec,imageMoravec);
-
-imagemor=zeros(size(imageMoravec,1),size(imageMoravec,2),3);
-for i=1:3
-imagemor(:,:,i)=imageMoravec(:,:);
-end
-
-image(imagemor);
-something=imageMoravec;
+% %imageMoravec=moravec(imageRGB);
+% imageMoravec=moravec(imageMasked);
+% imageMoravec=moravec(imageMoravec);
+% 
+% subplot(y_s,x_s,4);
+% %normalizedMoravec = normalizeToOneWithBorder(imageMoravec);
+% getCouplesOfPoints(imageMoravec,imageMoravec);
+% 
+% imagemor=zeros(size(imageMoravec,1),size(imageMoravec,2),3);
+% for i=1:3
+% imagemor(:,:,i)=imageMoravec(:,:);
+% end
+% 
+% image(imagemor);
+% something=imageMoravec;
 
 end
 
@@ -103,8 +101,7 @@ function [reduceMoravec] = reduceMoravec(moravecImg)
                 reduceMoravec(i,j,:)=NaN;
             end
         end
-    end
-    
+    end    
 end
  
 % function [normPicture] = normalizeToOneWithBorder(picture,min,max)
