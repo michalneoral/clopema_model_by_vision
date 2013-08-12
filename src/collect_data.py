@@ -63,19 +63,30 @@ def get_subname(i,y):
 
 def action_record_submenu(f):
     ExtAxisMove(1)
-    for i in range(0,3):
-        for y in range (0,2):		
-            GoToActionJoints_r1(i)
-            GoToActionJoints_r2(i,y)
-            time.sleep(f.time_more)
-            pid=start_bag_file_all(f.subname_of_file,f.robot_speed,f.number_of_file,get_subname(i,y))
-            time.sleep(2)
-            ActionMove(i,y)
-            stop_bag_file(pid,f.time_more)
-            time.sleep(2)            
+    #for i in range(0,3):
+        #for y in range (0,2):		
+            #GoToActionJoints_r1(i)
+            #GoToActionJoints_r2(i,y)
+            #time.sleep(f.time_more)
+            #pid=start_bag_file_all(f.subname_of_file,f.robot_speed,f.number_of_file,get_subname(i,y))
+            #time.sleep(2)
+            #ActionMove(i,y)
+            #stop_bag_file(pid,f.time_more)
+            #time.sleep(2)            
             
-    GoToActionJoints_r1(0)
-    GoToActionJoints_r2(0,0)
+    #GoToActionJoints_r1(0)
+    #GoToActionJoints_r2(0,0)
+    
+    for i in range(0,3):
+        GoToActionJoints_r1(0)
+        GoToActionJoints_r2(0,1)
+        time.sleep(f.time_more)
+        pid=start_bag_file_topic(f.subname_of_file,f.robot_speed,f.number_of_file,str(i))
+        time.sleep(2)
+        ActionMove(i,y)
+        stop_bag_file(pid,f.time_more)
+        time.sleep(2)
+    
     f.increase_number()
     
 def action_record(f):
