@@ -1,4 +1,8 @@
 function [image] = queueToImage (queue,res_X,res_Y)
+    if nargin < 2
+        res_X=640;
+        res_Y=480;
+    end
     sizeOfColor = size(queue,1)/res_X/res_Y;
     image=zeros(res_Y,res_X,sizeOfColor);
     count=1;

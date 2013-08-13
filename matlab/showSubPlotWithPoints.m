@@ -115,34 +115,55 @@ hFig2 = figure(2);
 set(hFig2, 'Position', [50 50 1200 500]);
 
 subplot(1,2,1);
-imageHighlighted=highlightPoints(imageFiltred, [163 345]);
-image(imageHighlighted(125:225,300:400,:));
+%imageHighlighted=highlightPoints(imageFiltred, [163 345]);
+%image(imageHighlighted(125:225,300:400,:));
+image(imageFiltred);
 grid on;
 
 % Load second image
 subplot(1,2,2);
-imageHighlighted2=highlightPoints(imageFiltred2, [300 300]);
-image(imageHighlighted2(125:225,300:400,:));
+% imageHighlighted2=highlightPoints(imageFiltred2, [300 300]);
+% image(imageHighlighted2(125:225,300:400,:));
+subplot(y_s,x_s,4);
+surf(distance,'EdgeColor','none');
+view(0,-90);
+rotate3d off;
+colormap(jet);
 grid on;
+
+something = cv.calcOpticalFlowFarneback(rgb2gray(imageFiltred), rgb2gray(imageFiltred2));
 
 %% Splited Images
 
 [splited_images,cx,cy] = splitImage(imageFiltred);
-hFig2 = figure(3);
-set(hFig2, 'Position', [50 50 1200 600]);
-for i=1:size(splited_images,1)
-    subplot(cy,cx,i);
-    imshow(splited_images{i,1});
-end
-
+%  hFig2 = figure(3);
+%  set(hFig2, 'Position', [50 50 1200 600]);
+% for i=1:size(splited_images,1)
+%     subplot(cy,cx,i);
+%     imshow(splited_images{i,1});
+% end
+% 
 [splited_images2,cx,cy] = splitImage(imageFiltred2);
-hFig2 = figure(4);
-set(hFig2, 'Position', [50 50 1200 600]);
-for i=1:size(splited_images2,1)
-    subplot(cy,cx,i);
-    imshow(splited_images2{i,1});
-end
+% hFig2 = figure(4);
+% set(hFig2, 'Position', [50 50 1200 600]);
+% for i=1:size(splited_images2,1)
+%     subplot(cy,cx,i);
+%     imshow(splited_images2{i,1});
+% end
 
+figure(5)
+I = rgb2gray(imageFiltred);
+regionsObj = detectMSERFeatures(I);
+[features, validPtsObj] = extractFeatures(I, regionsObj);
+imshow(I); hold on;
+plot(validPtsObj,'showOrientation',true);
+
+figure(6)
+I = rgb2gray(imageFiltred2);
+regionsObj = detectMSERFeatures(I);
+[features, validPtsObj] = extractFeatures(I, regionsObj);
+imshow(I); hold on;
+plot(validPtsObj,'showOrientation',true);
 end
 
 function [imagesStruct, cx, cy] = splitImage(Image, resolution, segmentation, right_border, down_border)
