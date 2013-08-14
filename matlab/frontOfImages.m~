@@ -7,7 +7,7 @@ function [ front , optFlow ] = frontOfImages( msgs, rgb_back )
 
     index=1;
 
-    
+      
     
     for i=1:size(queue,1)-1
         if( queue{i, 1}(1,1)~=queue{i+1, 1}(1,1) && queue{i, 1}(2,1)~=queue{i+1, 1}(2,1) )
@@ -28,7 +28,6 @@ end
 function [queue] = makeQueueOfClosedTopics(msgs,topics)
     pos=getTopicPosition(msgs, topics{1,1});
     quantity=size(msgs{pos,1},2);
-    queue=cell(quantity,3);
     for i=1:quantity
         queue(i,:) = {findMostClosed( msgs, topics, i)};
     end
