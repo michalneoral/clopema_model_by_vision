@@ -1,5 +1,0 @@
-flow = callOptFarneback(im1f,im2f);
-a=(abs(flow)>2);
-b=(abs(flow)<75);
-flow2=b.*a.*flow;
-vector=fromFlowToVector(flow2);
