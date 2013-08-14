@@ -17,10 +17,13 @@ function [ front , optFlow ] = frontOfImages( msgs, rgb_back )
         end
     end
     
+    im1f=motionDetection(front{2,1},rgb_back);
+    optFlow(:,1) = {round(callOptFarneback(im1f,im1f))};
+    
     for i=1:size(front, 2)-1
         im1f=motionDetection(front{2,i},rgb_back);
         im2f=motionDetection(front{2,i+1},rgb_back);
-        optFlow(:,i) = {round(callOptFarneback(im1f,im2f))};
+        optFlow(:,i+1) = {round(callOptFarneback(im1f,im2f))};
     end
    
 end
