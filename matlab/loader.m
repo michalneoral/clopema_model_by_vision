@@ -15,4 +15,5 @@ else
         bag = ros.Bag(path_and_bagfile);
         bag.info()
         reader
+        [front, queue] = frontOfImages(msgs,rgb_back);
 end
