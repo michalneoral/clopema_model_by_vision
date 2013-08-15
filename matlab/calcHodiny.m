@@ -10,7 +10,9 @@ function [  ] = calcHodiny( hodiny )
         hodEndDay=(endDay-minEndDay)/100;
         sumMin= sumMin+(hodEndDay-hodStartDay)*60+(minEndDay-minStartDay)-obedMin;
     end
-disp(sumMin/60)
+    disp(sumMin+obedMin*i)
+    disp((sumMin+obedMin*i)/60)
+    disp(sumMin/60)
 
 end
 

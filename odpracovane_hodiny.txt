@@ -1,0 +1,69 @@
+První týden
+    Středa  17.7.   11:20-17:20
+    Čtvrtek 18.7.    9:20-17:20
+    Pátek   19.7.    9:12-16:40
+    
+    Studoval jsem ROS a programování v Pythonu
+    Dělal jsem tutoriály na ros.org
+    Dělal jsem tutoriály na wiki clopema - smash
+    Studoval jsem smash
+    
+    
+Druhý týden
+    Pondělí 22.7.    9:00-17:00
+    Úterý   23.7.    9:48-17:00
+    Středa  24.7.    8:45-17:30
+    Čtvrtek 25.7.    9:20-18:04
+    Pátek   26.7.    9:20-16:30
+    
+    První skripty python pro ovládání robota
+    Ukládání dat to bag file
+    Skript pro ovládání robota, sběr dat - mávání
+    
+Třetí týden
+    Pondělí 29.7.    8:25-17:00
+    Úterý   30.7.    8:25-17:10
+    Středa  31.7.    8:47-15:00
+    Čtvrtek  1.8.    8:45-17:00
+    Pátek    2.8.    9:00-16:55
+    
+    Zřízení repozitáře
+    První snímání dat
+    Otvírání bag file v matlabu
+    Přizpůsobení rgb dat z bag file 
+        do podoby v jaké je matlab umí vykreslit
+    Změny pozic a nové snímání dat
+    Zjištění, že je třeba třapat od_sebe/k_sobě ->
+        -> nové pozice -> nové sbírání dat
+    Zobrazování hloubkové mapy
+        
+Čtvrtý týden
+    Pondělí  5.8.    9:00-17:45
+    Úterý    6.8.    8:45-18:25
+    Středa   7.8.    8:45-17:00
+    Čtvrtek  8.8.    9:10-17:00
+    Pátek    9.8.    9:20-14:10
+    
+    Rychlejší třepání látkou ("shake-it")
+    Zjištění, různého počtu snímků -> zarovnání snímku dle času
+        -> zarovnání i všech ostatních nasbíraných topiců dle času
+        -> (v rosbag 2 různé časové značky -> vybrána ta správná)
+    Zjištění potřebných a odstranění nepotřebných topiců v bag file
+    Nová pozice pro sběr dat, včetně hýbání ext.osy
+    Sběr dat před modrým plátnem
+    Odstranění pozadí ze snímků
+    
+Pátý týden
+    Pondělí 12.8.    8:30-17:05
+    Úterý   13.8.    8:35-17:15
+    Středa  14.8.    9:00-17:00
+       
+    Různé metody trackingu, vše se stejným výsledkem
+    
+    Čtvrtek 15.8.    9:00-17:00 (předpoklad)
+    
+Odpracováno celkem
+        22    dní
+        173,6 hodin (s obědy)
+        159   hodin (bez obědů, počítal jsem průměrně 40 minut na oběd)
+
