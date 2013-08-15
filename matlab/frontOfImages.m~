@@ -1,8 +1,4 @@
-function [ frontConnect , info , frontDist, frontRGB ] = frontOfImages( msgs, rgb_back )
-    
-    %dodelat frontDist, frontRGB samostatne vse
-    frontDist=1;frontRGB=1;
-
+function [ front , info , frontDist ] = frontOfImages( msgs, rgb_back )
     topics={
     '/xtion1/depth/image_raw';
     '/xtion1/rgb/image_raw';        
@@ -17,7 +13,7 @@ function [ frontConnect , info , frontDist, frontRGB ] = frontOfImages( msgs, rg
         end
     end
     
-    frontConnect=cell(3,index);
+    front=cell(3,index);
     info=cell(1,index);
     index=0;
     
@@ -28,7 +24,7 @@ function [ frontConnect , info , frontDist, frontRGB ] = frontOfImages( msgs, rg
                 [ pcloud, distance ] = getCloud( msgs{ queue{1, 1}(1,3),1 }{ 1,queue{i, 1}(1,1) }.data, true);
                 im=queueToImage(msgs{queue{1, 1}(2,3),1}{1,queue{i, 1}(2,1)}.data)./255;
                 imf=motionDetection(im,rgb_back);
-                frontConnect(:,index) = {im, imf, distance};
+                front(:,index) = {im, imf, distance};
                 info(:,index)= queue(i,:);
         end
     end 

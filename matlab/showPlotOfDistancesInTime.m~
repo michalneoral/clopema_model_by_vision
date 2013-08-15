@@ -1,0 +1,21 @@
+function [  ] = showPlotOfDistancesInTime( dist, queue, points )
+
+    timeStamp = zeros (1,size(queue,2));
+%     plotLegend = zeros(1,size(points,1))    for i=1:size(queue,2)
+        timeStamp(1,i)=queue{1, i}(1,2);        
+    end
+    for i=1:size(points,1)
+        plotLegend(1,i)=sprintf('%f', points{i,1}(1));
+    end
+
+    fig=figure(1);
+    clf(fig);
+    hold all;
+    for i=1:size(dist,1)
+        plot( timeStamp, dist(i,:));
+    end
+    legend(points);
+    hold off
+
+end
+

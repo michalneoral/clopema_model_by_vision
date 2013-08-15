@@ -1,7 +1,7 @@
 function [ images ] = doFarneback( msgs, rgb_back, startPoints )
 
 tic
-    [front,optFlow] = frontOfImages(msgs,rgb_back);
+    [front,optFlow] = frontOfImagesOptFlow(msgs,rgb_back);
 t=toc;
 disp(t);
 tic
