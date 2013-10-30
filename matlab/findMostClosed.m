@@ -20,7 +20,7 @@ function [ nclose ] = findMostClosed( msgs, topics, nfile )
                 nclose(i,2) = getTimeOfImage( msgs, order_of_topics(i), nclose(i,1))-time;
                 nclose(i,3) = order_of_topics(i);
             end
-    else
-        disp('Too big number of images');
+%     else
+%         disp('Too big number of images');
     end
 end

@@ -30,12 +30,12 @@ function [ pos ] = getMostClosed( time, msgs, topic, pos )
         end
     end
     
-    if pos == end_pos
-        disp('LAST IMAGE, MAY BIG TIME ERROR !!!');
-    end    
-    if pos == 1
-        disp('FIRST IMAGE, MAY BIG TIME ERROR !!!');
-    end
+%     if pos == end_pos
+%         disp('LAST IMAGE, MAY BIG TIME ERROR !!!');
+%     end    
+%     if pos == 1
+%         disp('FIRST IMAGE, MAY BIG TIME ERROR !!!');
+%     end
     
 end
 

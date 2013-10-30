@@ -1,6 +1,5 @@
 % clopema_model_by_vision
 % Michal Neoral
-
 nfiles=showNamesInDictionaty (path_to_bag_files);
 if nfiles==0
     sprintf('No files in %s or no access',path_to_bag_files)
