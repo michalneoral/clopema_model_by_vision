@@ -6,14 +6,17 @@ from tf_conversions import posemath
 from clopema_smach import *
 from clopema_motoros.srv import *
 from geometry_msgs.msg import *
-from smach import State
-from clopema_planning_actions.msg import MA1400JointState
+from smach import State, Sequence
+from clopema_smach.msg import MA1400JointState
 from clopema_smach.utility_states import PoseBufferState
+from sensor_msgs.msg import JointState
 import _pos
 
 def ExtAxisMove(pos=0):
-    sq = smach.Sequence( outcomes = ['succeeded','aborted','preempted'], connector_outcome = 'succeeded')
+	#rospy.init_node("move_ext_sm")
+    sq = Sequence(outcomes=['succeeded', 'aborted', 'preempted'], connector_outcome='succeeded')
     sm = gensm_plan_vis_exec(PlanExtAxisState(), input_keys=[], output_keys=[], visualize = _pos.visualize)
+    #sm = gensm_plan_vis_exec(PlanExtAxisState())
     sm.userdata.position = _pos.get_ext_axis_position(pos)
 
     with sq:
@@ -55,7 +58,7 @@ def OpenGrip(name = 'open_grip', _open=True):
     sm.execute()
 
 def CloseGrip(name = 'close_grip'):
-	OpenGrip(_open=False)
+    OpenGrip(_open=False)
 
 def _move(name, new_smash, new_smash_plan):
     with new_smash:

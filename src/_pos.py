@@ -10,7 +10,7 @@ from tf_conversions import posemath
 from clopema_smach import *
 from geometry_msgs.msg import *
 from smach import State
-from clopema_planning_actions.msg import MA1400JointState
+from clopema_smach.msg import MA1400JointState
 from clopema_smach.utility_states import PoseBufferState
 
 """OLD POSITION ARE AT THE END OF FILE""" 
