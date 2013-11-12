@@ -5,8 +5,9 @@ import signal
 import subprocess
 import string
 
-path_to_files = '/media/5FB92F7D501A5B3A/Clopema/'
+path_to_files = '/media/neosh/5FB92F7D501A5B3A/Clopema/Pokusy/'
 #path_to_files = '/home/neoral/'
+path_to_topic = '/home/neosh/ros_catkin_ws/src/clopema_model_by_vision/matlab/topics.txt'
 
 #def last_name():
     #gt = operator.gt
@@ -30,7 +31,7 @@ def start_bag_file_all(name,speed,number,subname):
        save only topics in ./../matlab/topics.txt"""   
     #read a file with names of topics
     try:
-        f = open("./matlab/topics.txt", "r")
+        f = open(path_to_topic, "r")
         try:
             lines = f.readlines()            
         finally:
@@ -54,7 +55,7 @@ def start_bag_file_topic(name,speed,number,subname):
     """function to save bag file
        save only topics in ./../matlab/topics.txt"""   
     #read a file with names of topics
-    filename = "".join(['./matlab/topics',subname,'.txt'])
+    filename = "".join([path_to_topic,subname,'.txt'])
     try:
         f = open(filename, "r")
         try:
@@ -75,17 +76,19 @@ def start_bag_file_topic(name,speed,number,subname):
         m[i+4]=s
     p = subprocess.Popen(m)
     return p.pid    
-
+    
 def start_bag_file_camera_def(number_of_position):
     """function to save bag file
        save only topics in ./../matlab/topics.txt"""   
     try:
-        f = open("./matlab/topics.txt", "r")
+        print "open"
+        f = open(path_to_topic, "r")
         try:
             lines = f.readlines()            
         finally:
             f.close()
     except IOError:
+        print lines
         pass
 
     name_of_file=''.join([path_to_files, 'camera_default', '_',number_of_position])
