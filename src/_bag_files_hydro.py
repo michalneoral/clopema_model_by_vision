@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+"""Functions for work with bag files"""
+import os, glob, time, operator
+import signal
+import subprocess
+import string
+
+path_to_files = '/media/neosh/5FB92F7D501A5B3A/Clopema/Pokusy/'
+#path_to_files = '/home/neoral/'
+path_to_topic = '/home/neosh/ros_catkin_ws/src/clopema_model_by_vision/matlab/topics.txt'
+
+def start_bag_file_all(name,speed,number,subname):
+    """function to save bag file
+       save only topics in ./../matlab/topics.txt"""   
+    #read a file with names of topics
+    try:
+        f = open(path_to_topic, "r")
+        try:
+            topicfile = f.readlines()            
+        finally:
+            f.close()
+    except IOError:
+        pass
+
+    name_of_file=''.join([path_to_files, name, '_', speed, '_', str(number), '_', subname])
+    m=range(0,len(topicfile)+5)
+    m[0]='rosbag'
+    m[1]='record'
+    m[2]='-O'
+    m[3]='--duration=8'
+    m[4]=name_of_file
+    for i in range(0,len(topicfile)):
+        s=str(topicfile[i]).strip()
+        m[i+5]=s
+    p = subprocess.Popen(m)
+    return p.pid
+    
+def start_bag_file_topic(name,speed,number,subname):
+    """function to save bag file
+       save only topics in ./../matlab/topics.txt"""   
+    #read a file with names of topics
+    filename = "".join(['/home/neosh/ros_catkin_ws/src/clopema_model_by_vision/matlab/topics',subname,'.txt'])
+    try:
+        f = open(filename, "r")
+        try:
+            topicfile = f.readlines()            
+        finally:
+            f.close()
+    except IOError:
+        pass
+
+    name_of_file=''.join([path_to_files, name, '_', speed, '_', str(number), '_', subname])
+    m=range(0,len(topicfile)+5)
+    m[0]='rosbag'
+    m[1]='record'
+    m[2]='-O'
+    m[3]='--duration=8'
+    m[4]=name_of_file
+    for i in range(0,len(topicfile)):
+        s=str(topicfile[i]).strip()
+        m[i+5]=s
+    p = subprocess.Popen(m)
+    return p.pid    
+
+def start_bag_file_camera_def(number_of_position):
+    """function to save bag file
+       save only topics in ./../matlab/topics.txt"""   
+    try:
+        print "open"
+        f = open(path_to_topic, "r")
+        try:
+            lines = f.readlines()            
+        finally:
+            f.close()
+    except IOError:
+        print lines
+        pass
+
+    name_of_file=''.join([path_to_files, 'camera_default', '_',number_of_position])
+    m=range(0,len(lines)+5)
+    m[0]='rosbag'
+    m[1]='record'
+    m[2]='-O'
+    m[3]='--duration=8'
+    m[4]=name_of_file
+    for i in range(0,len(lines)):
+        s=str(lines[i]).strip()
+        m[i+5]=s
+    p = subprocess.Popen(m)
+    return p.pid    
+    
+def stop_bag_file(pid, time_more):
+    #time.sleep(time_more)
+    os.kill(pid, signal.SIGINT)
+    
+    
