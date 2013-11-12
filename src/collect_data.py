@@ -2,7 +2,7 @@
 """program for collecting data, only menu"""
 import roslib; roslib.load_manifest('clopema_smach')
 import rospy, smach, smach_ros, math, copy, tf, PyKDL, os, shutil, numpy, time, subprocess
-from _bag_files import start_bag_file_all, stop_bag_file, start_bag_file_camera_def
+from _bag_files_hydro import stop_bag_file, start_bag_file_camera_def, start_bag_file_topic
 from actions import GoHome, GoToAction, ActionMove, OpenGrip, CloseGrip, GoToActionJoints_r1, GoToActionJoints_r2, ExtAxisMove
 
 time_to_close = 0
@@ -12,7 +12,7 @@ class bag_file_record:
     def __init__(self):
         self.subname_of_file = ''
         self.number_of_file = ''
-        self.time_more = 3.0
+        self.time_more = 8.0
         self.robot_speed = '0.1'
                 
     def zeros(self):
@@ -78,14 +78,15 @@ def action_record_submenu(f):
     #GoToActionJoints_r2(0,0)
     
     for i in range(0,3):
-        GoToActionJoints_r1(0)
-        GoToActionJoints_r2(0,1)
-        time.sleep(f.time_more)
-        pid=start_bag_file_topic(f.subname_of_file,f.robot_speed,f.number_of_file,str(i))
-        time.sleep(2)
-        ActionMove(i,y)
-        stop_bag_file(pid,f.time_more)
-        time.sleep(2)
+        for y in range (0,2):
+            GoToActionJoints_r1(0)
+            GoToActionJoints_r2(0,y)
+            time.sleep(f.time_more)
+            pid=start_bag_file_topic(f.subname_of_file,f.robot_speed,f.number_of_file,str(i))
+            time.sleep(2)
+            ActionMove(i,y)
+            stop_bag_file(pid,f.time_more)
+            time.sleep(2)
     
     f.increase_number()
     
@@ -148,7 +149,7 @@ def _cameraDefaultRecord():
     for i in range(0,3):
         GoToActionJoints_r1(i)
         pid=start_bag_file_camera_def(str(i))
-        stop_bag_file(pid,5)
+        stop_bag_file(pid,4)
     
 def _menu(i,f):
     if i=='1' or i=='home':
@@ -167,7 +168,7 @@ def _menu(i,f):
     elif i=='6' or i=='camdef':        
         _cameraDefaultRecord()
     elif i=='stop':
-        exit()
+        os._exit(0)
     else:
 	    print "Doesn't work"
 
