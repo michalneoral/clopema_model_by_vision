@@ -7,7 +7,7 @@ import string
 
 path_to_files = '/media/neosh/5FB92F7D501A5B3A/Clopema/Pokusy/'
 #path_to_files = '/home/neoral/'
-path_to_topic = '/home/neosh/ros_catkin_ws/src/clopema_model_by_vision/matlab/topics.txt'
+path_to_topic = '/../matlab/topics.txt'
 
 def start_bag_file_camera_def(number_of_position):
     """function to save bag file

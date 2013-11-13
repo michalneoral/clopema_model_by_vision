@@ -4,10 +4,11 @@ import os, glob, time, operator
 import signal
 import subprocess
 import string
+import local_options
 
-path_to_files = '/media/neosh/5FB92F7D501A5B3A/Clopema/Pokusy/'
+path_to_files = local_options.savefolder
 #path_to_files = '/home/neoral/'
-path_to_topic = '/home/neosh/ros_catkin_ws/src/clopema_model_by_vision/matlab/topics'
+path_to_topic = ''.join([local_options.pcglocate,'matlab/topics'])
 
 def start_bag_file_all(name,speed,number,subname):
     """function to save bag file
