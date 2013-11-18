@@ -20,7 +20,7 @@ for i=1:size(pic,1)
     leftright=leftright+pic(i,:);
 end
 
-leftright(1:120)=0;
+leftright(1:200)=0;
 
 left=0;
 for i=1:size(pic,2)

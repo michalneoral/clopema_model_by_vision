@@ -9,7 +9,10 @@ function [ speed ] = showPlotOfDistancesInTime( dist, queue, points )
     clf(fig);
     hold all;
     for i=1:size(dist,1)
-        plot( timeStamp, dist(i,:));
+        plot( timeStamp, dist(i,:),'-*');
+        title('Vzdalenost od kamery');
+        xlabel('s');
+        ylabel('m');
     end
     grid on
     hold off
@@ -23,7 +26,10 @@ function [ speed ] = showPlotOfDistancesInTime( dist, queue, points )
     clf(fig);
     hold all;
     for i=1:size(speed,1)
-        plot( (timeStamp(1:end-1)+timeStamp(2:end))/2, speed(i,:));
+        plot( (timeStamp(1:end-1)+timeStamp(2:end))/2, speed(i,:),'-*');
+        title('Rychlost bodu');
+        xlabel('s');
+        ylabel('m/s');
     end
     grid on
     hold off
