@@ -11,10 +11,14 @@ openingMask = ones (15);
 maskImage(:,:,1) = imopen(maskImage(:,:,1),openingMask);
 
 %%
+A=ones(480,640);
+A(1:100,1:200)=0;
+maskImage(:,:,1) = maskImage(:,:,1).*A;
 maskImage(:,:,2) = maskImage(:,:,1);
 maskImage(:,:,3) = maskImage(:,:,2);
 
 maskImage = nullToNan(maskImage);
+
 
 filtredImage = maskImage .* image1;
 
